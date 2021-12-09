@@ -1,11 +1,11 @@
 const Employee = require("../lib/Employee.js");
 
 test("creates an employee object", () => {
-    const employee = new Employee("Bob");
+    const employee = new Employee("Bob", "1234", "Bob1@panda.com");
 
     expect(employee.name).toBe("Bob");
-    expect(employee.id).toBe("Bob1");
-    // expect(employee.email).toBe("Bob1@panda.com");
+    expect(employee.id).toBe("1234");
+    expect(employee.email).toBe("Bob1@panda.com");
 });
 
 
