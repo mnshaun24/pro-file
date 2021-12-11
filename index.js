@@ -33,7 +33,7 @@ const askManager = () => {
             message: "Provide your email address."
         },
         {
-            type: "checkbox",
+            type: "list",
             name: "chooseClass",
             message: "For which class of worker do you want to enter information?",
             choices: ["Engineer", "Employee", "Intern", "I'm finished."]
@@ -100,6 +100,10 @@ const addEmployee = () => {
             message: "What is your employee's email address?"
         },
     ])
+    .then(({ employeeName }) => {
+        currentTeam.push(employeeName);
+        console.log(currentTeam);
+    });
 };
 
 const addIntern = () => {
@@ -125,6 +129,10 @@ const addIntern = () => {
             message: "From which school did this intern come?"
         }
     ])
+    .then(({ internName }) => {
+        currentTeam.push(internName);
+        console.log(currentTeam);
+    });
 };
 
 askManager();
