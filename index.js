@@ -48,7 +48,7 @@ const askManager = () => {
             addIntern();
         } else {
             console.log(currentTeam)
-            // myTeam();
+            myTeam();
         }
     })
 };
@@ -134,5 +134,9 @@ const addIntern = () => {
         console.log(currentTeam);
     });
 };
+
+const myTeam = () => {
+
+}
 
 askManager();
