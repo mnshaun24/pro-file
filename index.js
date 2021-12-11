@@ -1,6 +1,9 @@
 // require files and set up functions
-const inquirer = require("inquirer");
+const inquirer = require("inquirer")
 // const {fill this in later} = require("./path name")
+
+// array for team members
+const currentTeam = [];
 
 // run function to gather information
 
@@ -9,7 +12,7 @@ const askManager = () => {
         {
             type: "input",
             name: "managerName",
-            message: "What is your team manager's name?"
+            message: "What is your team manager's name?",
             validate: managerName => {
                 if (managerName) {
                     return true;
@@ -37,15 +40,15 @@ const askManager = () => {
         }
     ])
     .then(userChoice => {
-        if (userChoice.managerChoice === "Engineer") {
+        if (userChoice.chooseClass === "Engineer") {
             addEngineer();
-        } else if (userChoice.managerChoice === "Employee") {
+        } else if (userChoice.chooseClass === "Employee") {
             addEmployee();
-        } else if (userChoice.managerChoice === "Intern") {
+        } else if (userChoice.chooseClass === "Intern") {
             addIntern();
         } else {
             console.log(currentTeam)
-            myTeam();
+            // myTeam();
         }
     })
 };
@@ -73,4 +76,55 @@ const addEngineer = () => {
             message: "What is your engineer's office number?"
         }
     ])
+    .then(({ engineerName }) => {
+        currentTeam.push(engineerName);
+        console.log(currentTeam);
+    });
 };
+
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "employeeName",
+            message: "What is the name of your employee?"
+        },
+        {
+            type: "input",
+            name: "employeeId",
+            message: "What is your employee's ID?"
+        },
+        {
+            type: "input",
+            name: "employeeEmail",
+            message: "What is your employee's email address?"
+        },
+    ])
+};
+
+const addIntern = () => {
+    inquirer.prompt ([
+        {
+            type: "input",
+            name: "internName",
+            message: "What is the intern's name?"
+        },
+        {
+            type: "input",
+            name: "internId",
+            message: "What is the intern's ID?"
+        },
+        {
+            type: "input",
+            name: "internEmail",
+            message: "What is the intern's email address?"
+        },
+        {
+            type: "input",
+            name: "internSchool",
+            message: "From which school did this intern come?"
+        }
+    ])
+};
+
+askManager();
