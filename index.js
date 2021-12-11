@@ -1,9 +1,39 @@
 // require files and set up functions
-const inquirer = require("inquirer")
-// const {fill this in later} = require("./path name")
+const inquirer = require("inquirer");
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Employee = require("./lib/Employee.js");
+const Intern = require("./lib/Intern.js");
+
+
+const { generateHTML , writeFile } = require("./utils/generateHTML");
 
 // array for team members
 const currentTeam = [];
+
+// variable for cleaner code
+const employeeChoices = () => {
+    return inquirer.prompt ([
+        {
+            type: "list",
+            name: "chooseClass",
+            message: "What type of worker would you like to add?",
+            choices: ["Engineer", "Employee", "Intern", "I'm finished"]
+        }
+    ])
+    .then(userChoice => {
+        if (userChoice.chooseClass === "Engineer") {
+            addEngineer();
+        } else if (userChoice.chooseClass === "Employee") {
+            addEmployee();
+        } else if (userChoice.chooseClass === "Intern") {
+            addIntern();
+        } else {
+            console.log(currentTeam)
+            // runThatHTML();
+        }
+    })
+};
 
 // run function to gather information
 
@@ -32,24 +62,11 @@ const askManager = () => {
             name: "managerEmail",
             message: "Provide your email address."
         },
-        {
-            type: "list",
-            name: "chooseClass",
-            message: "For which class of worker do you want to enter information?",
-            choices: ["Engineer", "Employee", "Intern", "I'm finished."]
-        }
     ])
-    .then(userChoice => {
-        if (userChoice.chooseClass === "Engineer") {
-            addEngineer();
-        } else if (userChoice.chooseClass === "Employee") {
-            addEmployee();
-        } else if (userChoice.chooseClass === "Intern") {
-            addIntern();
-        } else {
-            console.log(currentTeam)
-            myTeam();
-        }
+    .then (managerData => {
+        manager = new Manager(managerData.name, managerData.id, managerData.email);
+        currentTeam.push(manager);
+        employeeChoices();
     })
 };
 
@@ -74,12 +91,13 @@ const addEngineer = () => {
             type: "input",
             name: "engineerOffice",
             message: "What is your engineer's office number?"
-        }
+        },
     ])
-    .then(({ engineerName }) => {
-        currentTeam.push(engineerName);
-        console.log(currentTeam);
-    });
+    .then(engineerData => {
+        engineer = new Engineer(engineerData.name, engineerData.id, engineerData.email, engineerData.office);
+        currentTeam.push(engineer);
+        employeeChoices();
+    })
 };
 
 const addEmployee = () => {
@@ -100,10 +118,11 @@ const addEmployee = () => {
             message: "What is your employee's email address?"
         },
     ])
-    .then(({ employeeName }) => {
-        currentTeam.push(employeeName);
-        console.log(currentTeam);
-    });
+    .then(employeeData => {
+        employee = new Employee(employeeData.name, employeeData.id, employeeData.email);
+        currentTeam.push(employee);
+        employeeChoices();
+    })
 };
 
 const addIntern = () => {
@@ -127,16 +146,25 @@ const addIntern = () => {
             type: "input",
             name: "internSchool",
             message: "From which school did this intern come?"
-        }
+        },
     ])
-    .then(({ internName }) => {
-        currentTeam.push(internName);
-        console.log(currentTeam);
-    });
+    .then(internData => {
+        intern = new Intern(internData.name, internData.id, internData.email, internData.school);
+        currentTeam.push(internData);
+        employeeChoices();
+    })
 };
 
-const myTeam = () => {
-
-}
-
-askManager();
+askManager()
+    // .then(newTeam => {
+    //     console.log("This is the askManager return", currentTeam)
+    //     const teamCards = generateHTML(newTeam);
+    //     return writeFile(teamCards);
+    // })
+    // .then(makeFileResponse => {
+    //     console.log(makeFileResponse);
+    // })
+    // // make sure errors are caught
+    // .catch(err => {
+    //     console.log(err);
+    // });
