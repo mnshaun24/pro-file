@@ -173,23 +173,3 @@ askManager()
     .catch(err => {
         console.log(err);
     })
-
-
-
-
-
-
-
-
-    // .then(newTeam => {
-    //     console.log("This is the askManager return", currentTeam)
-    //     const teamCards = generateHTML(newTeam);
-    //     return writeFile(teamCards);
-    // })
-    // .then(makeFileResponse => {
-    //     console.log(makeFileResponse);
-    // })
-    // // make sure errors are caught
-    // .catch(err => {
-    //     console.log(err);
-    // });
