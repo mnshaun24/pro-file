@@ -6,7 +6,7 @@ const Employee = require("./lib/Employee.js");
 const Intern = require("./lib/Intern.js");
 
 
-const { generateHTML , writeFile } = require("./utils/generateHTML");
+const { generateHTML , writeFile } = require("./src/generateHTML");
 
 // array for team members
 const currentTeam = [];
@@ -30,7 +30,7 @@ const employeeChoices = () => {
             addIntern();
         } else {
             console.log(currentTeam)
-            // runThatHTML();
+            runThatHTML();
         }
     })
 };
@@ -155,7 +155,32 @@ const addIntern = () => {
     })
 };
 
+
 askManager()
+    .then(currentTeam => {
+        return generateHTML(currentTeam);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+        return copyFile();
+    })
+    .then(copyFileResponse => {
+        console.log(copyFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+
+
+
+
+
+
+
     // .then(newTeam => {
     //     console.log("This is the askManager return", currentTeam)
     //     const teamCards = generateHTML(newTeam);
