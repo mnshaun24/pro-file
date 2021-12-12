@@ -30,7 +30,7 @@ const employeeChoices = () => {
         } else {
             console.log(currentTeam)
             const htmlContent = pageGeneration(currentTeam)
-                writeFile( "./output/myTeam.html", htmlContent, "utf-8")
+                writeFile(htmlContent)
         }
     })
 };
