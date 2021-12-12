@@ -1,7 +1,11 @@
+const fs = require("fs");
+
 const writeThatHTML = teamText => {
     if (!teamText) {
         return '';
     }
+
+    console.log("this is the log on page-template", teamText);
 
     return `
     <!DOCTYPE html>
