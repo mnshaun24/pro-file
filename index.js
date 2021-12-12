@@ -5,7 +5,7 @@ const Engineer = require("./lib/Engineer.js");
 const Employee = require("./lib/Employee.js");
 const Intern = require("./lib/Intern.js");
 const pageGeneration = require("./src/page-template");
-const { writeFile, copyFile  } = require("./src/generateHTML");
+const { writeFile, copyFile } = require("./src/generateHTML");
 
 // array for team members
 const currentTeam = [];
@@ -29,35 +29,12 @@ const employeeChoices = () => {
             addIntern();
         } else {
             console.log(currentTeam)
-            const runThatHTML = currentTeam => {
-            return inquirer.prompt([
-                {
-                    type: "input",
-                    name: "confirmEnd",
-                    message: "Are you sure you're finished?",
-                    default: true
-                }
-            ])
-                .then(currentTeam => {
-                    return pageGeneration(currentTeam);
-                })
-                .then(pageHTML => {
-                    return writeFile(pageHTML);
-                })
-                .then(writeFileResponse => {
-                    console.log(writeFileResponse);
-                    return copyFile();
-                })
-                .then(copyFileResponse => {
-                    console.log(copyFileResponse);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-            }
+            const htmlContent = pageGeneration(currentTeam)
+                writeFile( "./output/myTeam.html", htmlContent, "utf-8")
         }
-        })  
+    })
 };
+
 // run function to gather information
 
 const askManager = () => {
@@ -87,7 +64,7 @@ const askManager = () => {
         },
     ])
     .then (managerData => {
-        manager = new Manager(managerData.name, managerData.id, managerData.email);
+        manager = new Manager(managerData.managerName, managerData.managerId, managerData.managerEmail);
         currentTeam.push(manager);
         employeeChoices();
     })
@@ -117,7 +94,7 @@ const addEngineer = () => {
         },
     ])
     .then(engineerData => {
-        engineer = new Engineer(engineerData.name, engineerData.id, engineerData.email, engineerData.office);
+        engineer = new Engineer(engineerData.engineerName, engineerData.engineerId, engineerData.engineerEmail, engineerData.engineerOffice);
         currentTeam.push(engineer);
         employeeChoices();
     })
@@ -142,7 +119,7 @@ const addEmployee = () => {
         },
     ])
     .then(employeeData => {
-        employee = new Employee(employeeData.name, employeeData.id, employeeData.email);
+        employee = new Employee(employeeData.employeeName, employeeData.employeeId, employeeData.employeeEmail);
         currentTeam.push(employee);
         employeeChoices();
     })
@@ -172,29 +149,10 @@ const addIntern = () => {
         },
     ])
     .then(internData => {
-        intern = new Intern(internData.name, internData.id, internData.email, internData.school);
+        intern = new Intern(internData.internName, internData.internId, internData.internEmail, internData.internSchool);
         currentTeam.push(internData);
         employeeChoices();
     })
 };
 
-
-
-
-runThatHTML()
-    .then(currentTeam => {
-        return generateHTML(currentTeam);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-        return copyFile();
-    })
-    .then(copyFileResponse => {
-        console.log(copyFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    })
+askManager();

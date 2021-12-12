@@ -17,6 +17,9 @@ const writeThatHTML = teamText => {
             <h1>My Team</h1>
         </header>
 
+        <section>
+            <h2>${teamText.managerName}</h2>
+
     </body>
     </html>
     `
