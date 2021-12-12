@@ -10,11 +10,6 @@ const { writeFile, copyFile  } = require("./src/generateHTML");
 // array for team members
 const currentTeam = [];
 
-// const for final generation
-var runThatHTML = function(){
-
-};
-
 // variable for cleaner code
 const employeeChoices = () => {
     return inquirer.prompt ([
@@ -34,7 +29,15 @@ const employeeChoices = () => {
             addIntern();
         } else {
             console.log(currentTeam)
-            runThatHTML(currentTeam)
+            const runThatHTML = currentTeam => {
+            return inquirer.prompt([
+                {
+                    type: "input",
+                    name: "confirmEnd",
+                    message: "Are you sure you're finished?",
+                    default: true
+                }
+            ])
                 .then(currentTeam => {
                     return pageGeneration(currentTeam);
                 })
@@ -51,10 +54,10 @@ const employeeChoices = () => {
                 .catch(err => {
                     console.log(err);
                 });
+            }
         }
-    })
+        })  
 };
-
 // run function to gather information
 
 const askManager = () => {
