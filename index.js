@@ -4,12 +4,16 @@ const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Employee = require("./lib/Employee.js");
 const Intern = require("./lib/Intern.js");
-
-
-const { generateHTML , writeFile } = require("./src/generateHTML");
+const pageGeneration = require("./src/page-template");
+const { writeFile, copyFile  } = require("./src/generateHTML");
 
 // array for team members
 const currentTeam = [];
+
+// const for final generation
+var runThatHTML = function(){
+
+};
 
 // variable for cleaner code
 const employeeChoices = () => {
@@ -30,7 +34,23 @@ const employeeChoices = () => {
             addIntern();
         } else {
             console.log(currentTeam)
-            runThatHTML();
+            runThatHTML(currentTeam)
+                .then(currentTeam => {
+                    return pageGeneration(currentTeam);
+                })
+                .then(pageHTML => {
+                    return writeFile(pageHTML);
+                })
+                .then(writeFileResponse => {
+                    console.log(writeFileResponse);
+                    return copyFile();
+                })
+                .then(copyFileResponse => {
+                    console.log(copyFileResponse);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     })
 };
@@ -156,7 +176,9 @@ const addIntern = () => {
 };
 
 
-askManager()
+
+
+runThatHTML()
     .then(currentTeam => {
         return generateHTML(currentTeam);
     })
