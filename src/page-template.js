@@ -1,11 +1,10 @@
 const fs = require("fs");
 
-const writeThatHTML = teamText => {
-    if (!teamText) {
+const writeThatHTML = teamArray => {
+    if (!teamArray) {
         return '';
     }
 
-    console.log("this is the log on page-template", teamText);
 
     return `
     <!DOCTYPE html>
@@ -22,7 +21,47 @@ const writeThatHTML = teamText => {
         </header>
 
         <section>
-            <h2>${teamText.managerName}</h2>
+            ${teamArray.map(person => {
+                if (person.getRole() === "Manager") {
+                    return `<div class="card">
+                        <h1>${person.name}</h1>
+                        <h1>${person.getRole()}</h1>
+                        <h2>${person.id}</h2>
+                        <h2>${person.email}</h2>
+                        <h2>${person.officeNumber}</h2>
+                    </div>`
+                }
+                if (person.getRole() === "Engineer") {
+                    return `<div class="card">
+                        <h1>${person.name}</h1>
+                        <h1>${person.getRole()}</h1>
+                        <h2>${person.id}</h2>
+                        <h2>${person.email}</h2>
+                        <h2>${person.github}</h2>
+                    </div>`
+                }
+                if (person.getRole() === "Employee") {
+                    return `<div class="card">
+                        <h1>${person.name}</h1>
+                        <h1>${person.getRole()}</h1>
+                        <h2>${person.id}</h2>
+                        <h2>${person.email}</h2>
+                    </div>`
+                }
+                if (person.getRole() === "Intern") {
+                    return `<div class="card">
+                        <h1>${person.name}</h1>
+                        <h1>${person.getRole()}</h1>
+                        <h2>${person.id}</h2>
+                        <h2>${person.email}</h2>
+                        <h2>${person.school}</h2>
+                    </div>`
+                }
+
+            }) .join("")
+        }
+
+        </section>
 
     </body>
     </html>

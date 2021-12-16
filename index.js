@@ -89,12 +89,12 @@ const addEngineer = () => {
         },
         {
             type: "input",
-            name: "engineerOffice",
-            message: "What is your engineer's office number?"
+            name: "engineerHub",
+            message: "What is your engineer's gitHub profile?"
         },
     ])
     .then(engineerData => {
-        engineer = new Engineer(engineerData.engineerName, engineerData.engineerId, engineerData.engineerEmail, engineerData.engineerOffice);
+        engineer = new Engineer(engineerData.engineerName, engineerData.engineerId, engineerData.engineerEmail, engineerData.engineerHub);
         currentTeam.push(engineer);
         employeeChoices();
     })
@@ -120,6 +120,7 @@ const addEmployee = () => {
     ])
     .then(employeeData => {
         employee = new Employee(employeeData.employeeName, employeeData.employeeId, employeeData.employeeEmail);
+        console.log(employee.getRole())
         currentTeam.push(employee);
         employeeChoices();
     })
