@@ -151,7 +151,7 @@ const addIntern = () => {
     ])
     .then(internData => {
         intern = new Intern(internData.internName, internData.internId, internData.internEmail, internData.internSchool);
-        currentTeam.push(internData);
+        currentTeam.push(intern);
         employeeChoices();
     })
 };
