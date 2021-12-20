@@ -18,7 +18,7 @@ To practice node application, practice connecting front end to back end, and gen
 There is no live application link for this assignment
 
 ## Video Walktrough Link
-
+https://watch.screencastify.com/v/Jbztzlh7GoJIgB5SLEMI
 
 ## Contribution
 Shaun Sticka
